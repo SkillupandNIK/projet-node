@@ -1,11 +1,24 @@
+'use strict'
+
 const express = require ('express')
+const fs = require ('fs')
+
 const app = express()
 
-const users = []
+const users = [
+    { email : 'hugo@dores.fr', password : 'pass' }
+]
+
+let user1 = { email : 'hugo@yo', password : 'pass'}
+
+let data = JSON.stringify(user1)
+//fs.writeFileSync('users.json', data)
 
 app.set('view-engine', 'ejs')
 
+.use(express.json())
 .use(express.urlencoded({ extended : false }))
+
 .get('/', (req, res) => {
     res.render('lobby.ejs')
 })
@@ -22,11 +35,15 @@ app.set('view-engine', 'ejs')
 
 .post('/register', (req, res) => {
     users.push({
-        id = new Date().getTime()
+        //id = new Date.now()
     })
+    console.log("hello register")
 })
 
 .post('/login', (req, res) => {
-    console.log(req.body.password)
+    const user = { email : req.body.email, password : req.body.password }
+    users.push(user)
+    res.status(201)
 })
-app.listen(8080)
+
+.listen(8080)
