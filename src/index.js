@@ -5,9 +5,9 @@ const fs = require ('fs')
 
 const app = express()
 
-const users = [
-    { email : 'hugo@dores.fr', password : 'pass' }
-]
+const raw_users = fs.readFileSync('users.json')
+const users = JSON.parse(raw_users)
+console.log(users)
 
 let user1 = { email : 'hugo@yo', password : 'pass'}
 
