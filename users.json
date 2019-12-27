@@ -1,1 +1,22 @@
-[{"email":"hugo@dores.fr","password":"password"},{"email":"diegfe@eh","password":"ufebe"}]
+[
+  {
+    "name" : "hugo",
+    "email": "hugo@dores.fr",
+    "password": "password"
+  },
+  {
+    "name" : "nimp",
+    "email": "diegfe@eh",
+    "password": "ufebe"
+  },
+  {
+    "name": "troisieme",
+    "email": "yo@yoyo.francais",
+    "password": "amsterdam"
+  },
+  {
+    "name": "quatre",
+    "email": "quatre@patte.lourd",
+    "password": "jesaispasquoimettre"
+  }
+]

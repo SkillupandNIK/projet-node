@@ -5,17 +5,15 @@ const fs = require ('fs')
 
 const app = express()
 
-const raw_users = fs.readFileSync('users.json')
-const users = JSON.parse(raw_users)
-console.log(users)
-
-
 app.set('view-engine', 'ejs')
-
 .use(express.json())
 .use(express.urlencoded({ extended : false }))
 
-.get('/', (req, res) => {
+var raw_users = fs.readFileSync('users.json')
+var users = JSON.parse(raw_users)
+console.log("users", users, "?")
+
+app.get('/', (req, res) => {
     res.render('lobby.ejs')
 })
 
@@ -29,40 +27,45 @@ app.set('view-engine', 'ejs')
     res.render('register.ejs')
 })
 
-.post('/register', (req, res) => {
-    users.push({
-        //id = new Date.now()
-    })
-    console.log("hello register")
+.get('/connected', (req, res) => {
+    console.log('connected')
+    res.render('connected.ejs')
+    alert('connected')
 })
 
 .post('/login', (req, res) => {
-    const user = users.find(user => user.email = req.body.email)
+    const user = users.find(user => users.email = req.body.email)
     
     if (user == null)
         return res.status(400).send('Pas d\'utilisateur associé à cette adresse mail')
-
-    if (req.body.password == user.password)
-        console.log('ok')
-    else
-        console.log('pas ok')
-        //res.send('Pas autorisé')
+    else {
+        if (req.body.password == user.password)
+        {
+            console.log('ok')
+            res.redirect('connected')
+        }
+        else
+            console.log('pas ok')
+            //res.send('Pas autorisé')
+            res.redirect('/login')
+    }
+    
 
     res.status(201).send()
-    //res.redirect('lobby.ejs')
+    res.redirect('/lobby')
 })
 
-.post('/register', async (req, res) => {
+.post('/register', (req, res) => {
     //try {
-
         users.push({
             name : req.body.name,
             email : req.body.email,
-            password : req.body.password})
+            password : req.body.password
+        })
 
-        let data = JSON.stringify(users)
-        fs.writeFile('users.json', data)
-        res.redirect('lobby.ejs')
+        raw_users = JSON.stringify(users, null, 2)
+        fs.writeFile('users.json', raw_users)
+        res.redirect('/loggin')
     //}
     //catch {
     //    res.redirect('/register')
