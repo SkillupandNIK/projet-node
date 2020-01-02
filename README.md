@@ -12,4 +12,4 @@ For the moment,
 
 - you can then have access to the 'connected' page once loged in.
 
--there is a main hub for the application that stands just for the presentation
+- there is a main hub for the application that stands just for the presentation
